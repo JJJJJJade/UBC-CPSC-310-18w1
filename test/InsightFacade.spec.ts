@@ -1,9 +1,6 @@
-import { expect } from "chai";
+import {expect} from "chai";
 
-import {
-    InsightDatasetKind,
-    InsightError,
-} from "../src/controller/IInsightFacade";
+import {InsightDatasetKind, InsightError, NotFoundError} from "../src/controller/IInsightFacade";
 import InsightFacade from "../src/controller/InsightFacade";
 import Log from "../src/Util";
 import TestUtil from "./TestUtil";
@@ -23,6 +20,8 @@ describe("InsightFacade Add/Remove Dataset", function () {
     // automatically be loaded in the Before All hook.
     const datasetsToLoad: { [id: string]: string } = {
         courses: "./test/data/courses.zip",
+        courses2: "./test/data/courses2.zip",  // leture note:add another instance
+        courses3: "./test/data/courses3.txt",
     };
 
     let insightFacade: InsightFacade;
@@ -66,6 +65,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         Log.test(`AfterTest: ${this.currentTest.title}`);
     });
 
+    // This should successfully add a valid dataset
     it("Should add a valid dataset", async () => {
         const id: string = "courses";
         let response: string[];
@@ -77,10 +77,85 @@ describe("InsightFacade Add/Remove Dataset", function () {
         } finally {
             expect(response).to.deep.equal([id]);
         }
+
+    });
+
+    it("should not add an invalid dataset", async () => {
+        const id: string = "courses";
+        const id2: string = "courses";
+        const id3: string = "courses3";
+        const id4: string = null;
+        let response: string [];
+
+        try {
+            response = await insightFacade.addDataset(id3, datasets[id3], InsightDatasetKind.Courses);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).throw(new InsightError("This is not a zip.file dataset."));
+        }
+
+        insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
+
+        // If id is the same as the id of an already added dataset, the dataset should be rejected and not saved.
+        // This test should always fail
+        try {
+            response = await insightFacade.addDataset(id2, datasets[id2], InsightDatasetKind.Courses);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).throw(new InsightError("This dataset has already been added"));
+        }
+        // If course id is null
+        try {
+            response = await insightFacade.addDataset(null, datasets[id4], InsightDatasetKind.Courses);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).throw(new InsightError("This dataset doesn't exist"));
+        }
     });
 
     // This is an example of a pending test. Add a callback function to make the test run.
-    it("Should remove the courses dataset");
+    // This should successfully remove a dataset
+    it("Should remove the courses dataset", async () => {
+        const id: string = "courses";
+        let response: string;
+
+        insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
+
+        try {
+            response = await insightFacade.removeDataset(id);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.deep.equal(id);
+        }
+
+    });
+
+    // If there is no such course id existed, remove should be rejected
+    // the promise should reject with a NotFoundError (if a valid id was not yet added)
+    // or an InsightError (any other source of failure) describing the error.
+    it("Should not remove an unexisted course", async () => {
+        const id: string = "this course doesn't exist ";
+        let response: string;
+        try {
+            response = await insightFacade.removeDataset(id);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).throw(new NotFoundError("This course doesn't exist."));
+        }
+        // when the id is null, it should throw NotFoundError
+        try {
+            response = await insightFacade.removeDataset(null);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).throw(new NotFoundError("This course doesn't exist."));
+        }
+    });
 });
 
 // This test suite dynamically generates tests from the JSON files in test/queries.
@@ -177,6 +252,7 @@ describe("InsightFacade PerformQuery", () => {
                         }
                     }
                 });
+
             }
         });
     });
