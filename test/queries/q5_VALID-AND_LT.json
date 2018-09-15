@@ -1,0 +1,34 @@
+{
+    "title": "SELCT dept avg where avg<10, or fail<10, or audit<10",
+    "query": {"WHERE": {
+        "OR":[{"LT": {
+            "courses_avg":10
+        }},{"LT":{
+            "course_pass":20
+        }},{
+            "LT":{
+                "course_fail":10
+            }
+        },{
+            "LT":{
+                "course_audit":10
+            }
+        }]
+    },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[{"courses_dept":"frst","courses_avg":0},
+        {"courses_dept":"lfs","courses_avg":0},
+        {"courses_dept":"lfs","courses_avg":0},
+        {"courses_dept":"wood","courses_avg":1},
+        {"courses_dept":"busi","courses_avg":4},
+        {"courses_dept":"busi","courses_avg":4},
+        {"courses_dept":"fopr","courses_avg":4.5}]
+}
