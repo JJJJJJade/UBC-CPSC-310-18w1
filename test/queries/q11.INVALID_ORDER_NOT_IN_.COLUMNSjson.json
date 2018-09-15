@@ -13,6 +13,6 @@
             ],
             "ORDER": "courses_instructor"
         }},
-    "isQueryValid": "false",
+    "isQueryValid": false,
     "result": "Not implemented."
 }
