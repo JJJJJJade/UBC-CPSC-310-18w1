@@ -1,0 +1,21 @@
+{
+    "title": "SELECT override columns and order",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg": 98.7
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_instructor",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg",
+            "ORDER": "courses_instructor"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Not implemented."
+}
