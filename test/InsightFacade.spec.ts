@@ -23,6 +23,9 @@ describe("InsightFacade Add/Remove Dataset", function () {
         courses2: "./test/data/courses2.zip",  // leture note:add another instance
         courses3: "./test/data/courses3.txt",
         courses4: "./test/data/courses4.zip",   // zipfile name doesn't equal to folder name
+        courses7: "./test/data/courses7.zip",   // zipfile contains an empty folder
+        courses8: "./test/data/courses8.zip",   // zipfile contains only a file that is not json format
+        courses9: "./test/data/courses9.zip",   // zipfile contains only a json file that is in invalid format
     };
 
     let insightFacade: InsightFacade;
@@ -68,18 +71,27 @@ describe("InsightFacade Add/Remove Dataset", function () {
 
     // This should successfully add a valid dataset
     it("Should add a valid dataset", async () => {
-        const id: string = "courses";
-        let response: string[];
+            const id: string = "courses";
+            const id7: string = "courses7";
+            let response: string[];
 
-        try {
-            response = await insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
-        } catch (err) {
-            response = err;
-        } finally {
-            expect(response).to.deep.equal([id]);
-        }
-
-    });
+            try {
+                response = await insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
+            } catch (err) {
+                response = err;
+            } finally {
+                expect(response).to.deep.equal([id]);
+            }
+    // when the zip file contains an empty folder, it is still valid
+            try {
+                response = await insightFacade.addDataset(id7, datasets[id7], InsightDatasetKind.Courses);
+            } catch (err) {
+                response = err;
+            } finally {
+                expect(response).to.deep.equal([id7]);
+            }
+        },
+    );
 
     it("should not add an invalid dataset", async () => {
         const id: string = "courses";
@@ -87,6 +99,9 @@ describe("InsightFacade Add/Remove Dataset", function () {
         const id3: string = "courses3";
         const id4: string = null;
         const id5: string = "courses4";
+        const id6: string = "courses6";
+        const id8: string = "courses8";
+        const id9: string = "courses9";
         let response: string [];
 
         try {
@@ -94,7 +109,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         } catch (err) {
             response = err;
         } finally {
-            expect(response).throw(new InsightError("This is not a zip.file dataset."));
+            expect(response).to.be.instanceOf(InsightError);
         }
 
         insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
@@ -106,7 +121,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         } catch (err) {
             response = err;
         } finally {
-            expect(response).throw(new InsightError("This dataset has already been added"));
+            expect(response).to.be.instanceOf(InsightError);
         }
         // If course id is null
         try {
@@ -114,7 +129,15 @@ describe("InsightFacade Add/Remove Dataset", function () {
         } catch (err) {
             response = err;
         } finally {
-            expect(response).throw(new InsightError("This dataset doesn't exist"));
+            expect(response).to.be.instanceOf(InsightError);
+        }
+        // If course id is empty string ""
+        try {
+            response = await insightFacade.addDataset("", datasets[""], InsightDatasetKind.Courses);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.be.instanceOf(InsightError);
         }
         // If zip file name doesn;t equal to inside folder name
         try {
@@ -122,7 +145,39 @@ describe("InsightFacade Add/Remove Dataset", function () {
         } catch (err) {
             response = err;
         } finally {
-            expect(response).throw(new InsightError("zip file name doesn't match folder name"));
+            expect(response).to.be.instanceOf(InsightError);
+        }
+        // If no zip file is called by this id
+        try {
+            response = await insightFacade.addDataset("courses6", datasets[id6], InsightDatasetKind.Courses);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.be.instanceOf(InsightError);
+        }
+        // If the kind parameter is null
+        try {
+            response = await insightFacade.addDataset("courses", datasets[id], null);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.be.instanceOf(InsightError);
+        }
+        // If zip files contains only a fiel that is not json
+        try {
+            response = await insightFacade.addDataset("courses8", datasets[id8], InsightDatasetKind.Courses);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.be.instanceOf(InsightError);
+        }
+        // If zip files contains only a json file but doesn't follow json format
+        try {
+            response = await insightFacade.addDataset("courses9", datasets[id9], InsightDatasetKind.Courses);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.be.instanceOf(InsightError);
         }
     });
 
@@ -155,7 +210,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         } catch (err) {
             response = err;
         } finally {
-            expect(response).throw(new NotFoundError("This course doesn't exist."));
+            expect(response).to.be.instanceOf(NotFoundError);
         }
         // when the id is null, it should throw NotFoundError
         try {
@@ -163,7 +218,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         } catch (err) {
             response = err;
         } finally {
-            expect(response).throw(new NotFoundError("This course doesn't exist."));
+            expect(response).to.be.instanceOf(NotFoundError);
         }
     });
 
