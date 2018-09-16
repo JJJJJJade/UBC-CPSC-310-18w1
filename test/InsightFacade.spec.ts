@@ -1,6 +1,6 @@
 import {expect} from "chai";
 
-import {InsightDatasetKind, InsightError, NotFoundError} from "../src/controller/IInsightFacade";
+import {InsightDataset, InsightDatasetKind, InsightError, NotFoundError} from "../src/controller/IInsightFacade";
 import InsightFacade from "../src/controller/InsightFacade";
 import Log from "../src/Util";
 import TestUtil from "./TestUtil";
@@ -22,6 +22,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         courses: "./test/data/courses.zip",
         courses2: "./test/data/courses2.zip",  // leture note:add another instance
         courses3: "./test/data/courses3.txt",
+        courses4: "./test/data/courses4.zip",   // zipfile name doesn't equal to folder name
     };
 
     let insightFacade: InsightFacade;
@@ -36,7 +37,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
                 loadDatasetPromises.push(TestUtil.readFileAsync(path));
             }
             const loadedDatasets = (await Promise.all(loadDatasetPromises)).map((buf, i) => {
-                return { [Object.keys(datasetsToLoad)[i]]: buf.toString("base64") };
+                return {[Object.keys(datasetsToLoad)[i]]: buf.toString("base64")};
             });
             datasets = Object.assign({}, ...loadedDatasets);
             expect(Object.keys(datasets)).to.have.length.greaterThan(0);
@@ -85,6 +86,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         const id2: string = "courses";
         const id3: string = "courses3";
         const id4: string = null;
+        const id5: string = "courses4";
         let response: string [];
 
         try {
@@ -113,6 +115,14 @@ describe("InsightFacade Add/Remove Dataset", function () {
             response = err;
         } finally {
             expect(response).throw(new InsightError("This dataset doesn't exist"));
+        }
+        // If zip file name doesn;t equal to inside folder name
+        try {
+            response = await insightFacade.addDataset("courses4", datasets[id5], InsightDatasetKind.Courses);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).throw(new InsightError("zip file name doesn't match folder name"));
         }
     });
 
@@ -156,6 +166,25 @@ describe("InsightFacade Add/Remove Dataset", function () {
             expect(response).throw(new NotFoundError("This course doesn't exist."));
         }
     });
+
+    // test listDatasets method
+    it("test listDatasets(). should return a list of datasets", async () => {
+        let response: InsightDataset[];
+
+        try {
+            response = await insightFacade.listDatasets();
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.deep.include.members(
+                [{
+                    id: "courses",
+                    kind: InsightDatasetKind.Courses,
+                    numRows: 64612,
+                }],
+            );
+        }
+    });
 });
 
 // This test suite dynamically generates tests from the JSON files in test/queries.
@@ -197,7 +226,7 @@ describe("InsightFacade PerformQuery", () => {
                 loadDatasetPromises.push(TestUtil.readFileAsync(path));
             }
             const loadedDatasets = (await Promise.all(loadDatasetPromises)).map((buf, i) => {
-                return { [Object.keys(datasetsToQuery)[i]]: buf.toString("base64") };
+                return {[Object.keys(datasetsToQuery)[i]]: buf.toString("base64")};
             });
             expect(loadedDatasets).to.have.length.greaterThan(0);
 
