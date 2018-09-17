@@ -20,8 +20,8 @@ describe("InsightFacade Add/Remove Dataset", function () {
     // automatically be loaded in the Before All hook.
     const datasetsToLoad: { [id: string]: string } = {
         courses: "./test/data/courses.zip",
-        courses2: "./test/data/courses2.zip",  // leture note:add another instance
-        courses3: "./test/data/courses3.txt",
+        courses2: "./test/data/courses2.zip",  // zipfile same id
+        courses3: "./test/data/courses3.txt",  // not a zipfile
         courses4: "./test/data/courses4.zip",   // zipfile name doesn't equal to folder name
         courses7: "./test/data/courses7.zip",   // zipfile contains an empty folder
         courses8: "./test/data/courses8.zip",   // zipfile contains only a file that is not json format
@@ -181,6 +181,25 @@ describe("InsightFacade Add/Remove Dataset", function () {
         }
     });
 
+    // test listDatasets method
+    it("test listDatasets(). should return a list of datasets", async () => {
+        let response: InsightDataset[];
+
+        try {
+            response = await insightFacade.listDatasets();
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.deep.include.members(
+                [{
+                    id: "courses",
+                    kind: InsightDatasetKind.Courses,
+                    numRows: 64612,
+                }],
+            );
+        }
+    });
+
     // This is an example of a pending test. Add a callback function to make the test run.
     // This should successfully remove a dataset
     it("Should remove the courses dataset", async () => {
@@ -222,8 +241,8 @@ describe("InsightFacade Add/Remove Dataset", function () {
         }
     });
 
-    // test listDatasets method
-    it("test listDatasets(). should return a list of datasets", async () => {
+    // test listDatasets method when it fail
+    it("test listDatasets() when there is no dataset should return an InsightError", async () => {
         let response: InsightDataset[];
 
         try {
@@ -231,13 +250,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         } catch (err) {
             response = err;
         } finally {
-            expect(response).to.deep.include.members(
-                [{
-                    id: "courses",
-                    kind: InsightDatasetKind.Courses,
-                    numRows: 64612,
-                }],
-            );
+            expect(response).to.be.instanceOf(InsightError);
         }
     });
 });
