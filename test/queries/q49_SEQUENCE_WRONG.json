@@ -1,0 +1,19 @@
+{
+    "title": "columns and where has wrong sequence",
+    "query": {
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor",
+                "course_title",
+                "course_uuid"
+            ],
+            "ORDER": "courses_dept"
+        },
+        "WHERE": {"GT":{"courses_avg":98}
+        }
+    },
+    "isQueryValid": false,
+    "result": "Not implemented."
+}

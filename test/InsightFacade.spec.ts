@@ -24,7 +24,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         courses3: "./test/data/courses3.txt",  // not a zipfile
         courses4: "./test/data/courses4.zip",   // zipfile name doesn't equal to folder name
         courses7: "./test/data/courses7.zip",   // zipfile contains an empty folder
-        courses8: "./test/data/courses8.zip",   // zipfile contains only a file that is not json format
+        courses8: "./test/data/courses8.zip",   // zipfile contains only a file that is not json
         courses9: "./test/data/courses9.zip",   // zipfile contains only a json file that is in invalid format
     };
 

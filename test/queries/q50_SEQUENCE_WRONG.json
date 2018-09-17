@@ -1,0 +1,31 @@
+{
+    "title": "test when order and columns have worng sequence",
+    "query": {"WHERE": {
+        "OR":[{"GT": {
+            "courses_avg":100
+        }},{"GT":{
+            "course_pass":1000
+        }},{
+            "GT":{
+                "course_fail":110
+            }
+        },{
+            "GT":{
+                "course_audit":1000
+            }
+        }]
+    },
+        "OPTIONS": {
+            "ORDER": "courses_dept",
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor",
+                "course_title",
+                "course_uuid"
+            ]
+        }
+    },
+    "isQueryValid": false,
+    "result": "Not implemented."
+}
