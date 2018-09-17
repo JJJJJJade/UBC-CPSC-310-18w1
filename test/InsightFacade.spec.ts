@@ -183,6 +183,8 @@ describe("InsightFacade Add/Remove Dataset", function () {
 
     // test listDatasets method
     it("test listDatasets(). should return a list of datasets", async () => {
+        const id: string  = "courses";
+        insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
         let response: InsightDataset[];
 
         try {
@@ -243,6 +245,9 @@ describe("InsightFacade Add/Remove Dataset", function () {
 
     // test listDatasets method when it fail
     it("test listDatasets() when there is no dataset should return an InsightError", async () => {
+        const id: string  = "courses";
+        insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
+        insightFacade.removeDataset(id);
         let response: InsightDataset[];
 
         try {
