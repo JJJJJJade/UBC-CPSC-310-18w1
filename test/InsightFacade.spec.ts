@@ -26,6 +26,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         courses7: "./test/data/courses7.zip",   // zipfile contains an empty folder
         courses8: "./test/data/courses8.zip",   // zipfile contains only a file that is not json
         courses9: "./test/data/courses9.zip",   // zipfile contains only a json file that is in invalid format
+        courses10: "./test/data/courses10.zip",  // zipfile contains only a json file that has a json array []
     };
 
     let insightFacade: InsightFacade;
@@ -102,6 +103,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         const id6: string = "courses6";
         const id8: string = "courses8";
         const id9: string = "courses9";
+        const id10: string = "courses10";
         let response: string [];
 
         try {
@@ -174,6 +176,14 @@ describe("InsightFacade Add/Remove Dataset", function () {
         // If zip files contains only a json file but doesn't follow json format
         try {
             response = await insightFacade.addDataset("courses9", datasets[id9], InsightDatasetKind.Courses);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.be.instanceOf(InsightError);
+        }
+        // If zip files contains only a json file but contains a json array not json object
+        try {
+            response = await insightFacade.addDataset("courses10", datasets[id10], InsightDatasetKind.Courses);
         } catch (err) {
             response = err;
         } finally {
