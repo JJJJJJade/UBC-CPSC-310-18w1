@@ -228,7 +228,21 @@ describe("InsightFacade Add/Remove Dataset", function () {
         } finally {
             expect(response).to.deep.equal(id);
         }
+    });
 
+    it("Should return error when the course is alredy removed", async () => {
+        const id: string = "courses";
+        let response: string;
+
+        insightFacade.removeDataset(id);
+
+        try {
+            response = await insightFacade.removeDataset(id);
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.be.instanceOf(NotFoundError);
+        }
     });
 
     // If there is no such course id existed, remove should be rejected
