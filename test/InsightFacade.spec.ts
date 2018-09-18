@@ -27,6 +27,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
         courses8: "./test/data/courses8.zip",   // zipfile contains only a file that is not json
         courses9: "./test/data/courses9.zip",   // zipfile contains only a json file that is in invalid format
         courses10: "./test/data/courses10.zip",  // zipfile contains only a json file that has a json array []
+        courses11: "./test/data/courses11.zip",  // valid zipfile contains 6 valid courses json files
     };
 
     let insightFacade: InsightFacade;
@@ -83,7 +84,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
             } finally {
                 expect(response).to.deep.equal([id]);
             }
-    // when the zip file contains an empty folder, it is still valid
+            // when the zip file contains an empty folder, it is still valid
             try {
                 response = await insightFacade.addDataset(id7, datasets[id7], InsightDatasetKind.Courses);
             } catch (err) {
@@ -191,9 +192,9 @@ describe("InsightFacade Add/Remove Dataset", function () {
         }
     });
 
-    // test listDatasets method
+    // test listDatasets method where there is only one dataset
     it("test listDatasets(). should return a list of datasets", async () => {
-        const id: string  = "courses";
+        const id: string = "courses";
         insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
         let response: InsightDataset[];
 
@@ -255,7 +256,7 @@ describe("InsightFacade Add/Remove Dataset", function () {
 
     // test listDatasets method when it fail
     it("test listDatasets() when there is no dataset should return an InsightError", async () => {
-        const id: string  = "courses";
+        const id: string = "courses";
         insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
         insightFacade.removeDataset(id);
         let response: InsightDataset[];
@@ -266,6 +267,34 @@ describe("InsightFacade Add/Remove Dataset", function () {
             response = err;
         } finally {
             expect(response).to.be.instanceOf(InsightError);
+        }
+    });
+
+    // test listDatasets method where there are two datasets
+    it("test listDatasets(). should return a list of datasets", async () => {
+        const id: string = "courses";
+        const id11: string = "courses11";
+        insightFacade.addDataset(id, datasets[id], InsightDatasetKind.Courses);
+        insightFacade.addDataset(id11, datasets[id11], InsightDatasetKind.Courses);
+        let response: InsightDataset[];
+
+        try {
+            response = await insightFacade.listDatasets();
+        } catch (err) {
+            response = err;
+        } finally {
+            expect(response).to.deep.include.members(
+                [{
+                    id: "courses",
+                    kind: InsightDatasetKind.Courses,
+                    numRows: 64612,
+                },
+                    {
+                        id: "courses11",
+                        kind: InsightDatasetKind.Courses,
+                        numRows: 6,
+                    }],
+            );
         }
     });
 });
