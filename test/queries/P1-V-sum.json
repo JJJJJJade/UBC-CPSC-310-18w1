@@ -1,0 +1,193 @@
+{
+    "title": "group rooms by shortname sum seats",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "rooms_seats": 10
+                    }
+                },
+                {
+                    "LT": {
+                        "rooms_seats": 100
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_shortname",
+                "countSeats"
+            ],
+            "ORDER": "rooms_shortname"
+        },
+        "TRANSFORMATIONS": {
+            "GROUP": [
+                "rooms_shortname"
+            ],
+            "APPLY": [
+                {
+                    "countSeats": {
+                        "SUM": "rooms_seats"
+                    }
+                }
+            ]
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {
+            "rooms_shortname": "ALRD",
+            "countSeats": 228
+        },
+        {
+            "rooms_shortname": "ANGU",
+            "countSeats": 1286
+        },
+        {
+            "rooms_shortname": "ANSO",
+            "countSeats": 186
+        },
+        {
+            "rooms_shortname": "AUDX",
+            "countSeats": 41
+        },
+        {
+            "rooms_shortname": "BIOL",
+            "countSeats": 108
+        },
+        {
+            "rooms_shortname": "BRKX",
+            "countSeats": 94
+        },
+        {
+            "rooms_shortname": "BUCH",
+            "countSeats": 2087
+        },
+        {
+            "rooms_shortname": "CEME",
+            "countSeats": 189
+        },
+        {
+            "rooms_shortname": "CHBE",
+            "countSeats": 154
+        },
+        {
+            "rooms_shortname": "CHEM",
+            "countSeats": 180
+        },
+        {
+            "rooms_shortname": "DMP",
+            "countSeats": 160
+        },
+        {
+            "rooms_shortname": "EOSM",
+            "countSeats": 50
+        },
+        {
+            "rooms_shortname": "ESB",
+            "countSeats": 80
+        },
+        {
+            "rooms_shortname": "FNH",
+            "countSeats": 263
+        },
+        {
+            "rooms_shortname": "FORW",
+            "countSeats": 142
+        },
+        {
+            "rooms_shortname": "FSC",
+            "countSeats": 371
+        },
+        {
+            "rooms_shortname": "GEOG",
+            "countSeats": 294
+        },
+        {
+            "rooms_shortname": "HEBB",
+            "countSeats": 162
+        },
+        {
+            "rooms_shortname": "HENN",
+            "countSeats": 96
+        },
+        {
+            "rooms_shortname": "IBLC",
+            "countSeats": 244
+        },
+        {
+            "rooms_shortname": "IONA",
+            "countSeats": 50
+        },
+        {
+            "rooms_shortname": "LASR",
+            "countSeats": 325
+        },
+        {
+            "rooms_shortname": "LSK",
+            "countSeats": 117
+        },
+        {
+            "rooms_shortname": "MATH",
+            "countSeats": 271
+        },
+        {
+            "rooms_shortname": "MCLD",
+            "countSeats": 244
+        },
+        {
+            "rooms_shortname": "MCML",
+            "countSeats": 281
+        },
+        {
+            "rooms_shortname": "MGYM",
+            "countSeats": 65
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "countSeats": 662
+        },
+        {
+            "rooms_shortname": "OSBO",
+            "countSeats": 79
+        },
+        {
+            "rooms_shortname": "PCOH",
+            "countSeats": 240
+        },
+        {
+            "rooms_shortname": "PHRM",
+            "countSeats": 86
+        },
+        {
+            "rooms_shortname": "SCRF",
+            "countSeats": 724
+        },
+        {
+            "rooms_shortname": "SOWK",
+            "countSeats": 201
+        },
+        {
+            "rooms_shortname": "SPPH",
+            "countSeats": 166
+        },
+        {
+            "rooms_shortname": "SWNG",
+            "countSeats": 666
+        },
+        {
+            "rooms_shortname": "UCLL",
+            "countSeats": 163
+        },
+        {
+            "rooms_shortname": "WOOD",
+            "countSeats": 223
+        }
+    ]
+}
+
+
+
+

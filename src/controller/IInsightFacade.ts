@@ -1,5 +1,3 @@
-/* tslint:disable:max-classes-per-file */
-
 /*
  * This is the primary high-level API for the project. In this folder there should be:
  * A class called InsightFacade, this should be in a file called InsightFacade.ts.
@@ -46,6 +44,8 @@ export interface IInsightFacade {
      * containing the ids of all currently added datasets upon a successful add.
      * The promise should reject with an InsightError describing the error.
      *
+     * If id is the same as the id of an already added dataset, the dataset should be rejected and not saved.
+     *
      * After receiving the dataset, it should be processed into a data structure of
      * your design. The processed data structure should be persisted to disk; your
      * system should be able to load this persisted value into memory for answering
@@ -67,7 +67,7 @@ export interface IInsightFacade {
      * Attempting to remove a dataset that hasn't been added yet counts as an error.
      *
      * The promise should fulfill the id of the dataset that was removed.
-     * The promise should reject with a NotFoundError (if it was not yet added)
+     * The promise should reject with a NotFoundError (if a valid id was not yet added)
      * or an InsightError (any other source of failure) describing the error.
      *
      * This will delete both disk and memory caches for the dataset for the id meaning
@@ -78,20 +78,23 @@ export interface IInsightFacade {
     /**
      * Perform a query on UBCInsight.
      *
-     * @param query  The query to be performed. This is the same as the body of the POST message.
+     * @param query  The query to be performed.
+     *
+     * If a query is incorrectly formatted, references a dataset not added (in memory or on disk),
+     * or references multiple datasets, it should be rejected.
      *
      * @return Promise <any[]>
      *
-     * The promise should fulfill with an array of results for both fulfill and reject.
+     * The promise should fulfill with an array of results.
      * The promise should reject with an InsightError describing the error.
      */
     performQuery(query: any): Promise<any[]>;
 
     /**
-     * List a list of datasets and their types.
+     * List all currently added datasets, their types, and number of rows.
      *
      * @return Promise <InsightDataset[]>
-     * The promise should fulfill an array of currently added InsightDatasets and will only fulfill.
+     * The promise should fulfill an array of currently added InsightDatasets, and will only fulfill.
      */
     listDatasets(): Promise<InsightDataset[]>;
 }

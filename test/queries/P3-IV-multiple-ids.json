@@ -1,0 +1,45 @@
+{
+    "title": "group rooms by shortname sum seats",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "rooms_seats": 10
+                    }
+                },
+                {
+                    "LT": {
+                        "rooms_seats": 100
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_shortname",
+                "rooms_shortname",
+                "countSeats"
+            ],
+            "ORDER": "rooms_shortname"
+        },
+        "TRANSFORMATIONS": {
+            "GROUP": [
+                "rooms_shortname"
+            ],
+            "APPLY": [
+                {
+                    "countSeats": {
+                        "SUM": "rooms_seats"
+                    }
+                }
+            ]
+        }
+    },
+    "isQueryValid": false,
+    "result": "false"
+}
+
+
+
+

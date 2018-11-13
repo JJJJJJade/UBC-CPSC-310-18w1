@@ -23,6 +23,7 @@
         "member-ordering": false,
         "no-var-requires": false,
         "prefer-const": false,
-        "max-classes-per-file": false
+        "max-classes-per-file": false,
+        "trailing-comma": false
     }
 }

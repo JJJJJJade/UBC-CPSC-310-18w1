@@ -1,9 +1,0 @@
-{
-    "title": "no options",
-    "query": {
-        "WHERE": {"GT":{"courses_avg":98}
-        }
-    },
-    "isQueryValid": false,
-    "result": "Not implemented."
-}
