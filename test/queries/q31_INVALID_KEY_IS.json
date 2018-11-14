@@ -1,0 +1,63 @@
+{
+    "title": "SELECT COURSEID CONTAINS 3 AND COURSE AVG GT 98",
+    "query": {
+        "WHERE": {
+            "OR": [
+                {
+                    "AND": [
+                        {
+                            "IS": {
+                                "coursesid": "*3*"
+                            }
+                        },
+                        {
+                            "GT": {
+                                "courses_avg": 98
+                            }
+                        }
+                    ]
+                },
+                {
+                    "AND": [
+                        {
+                            "IS": {
+                                "courses_id": "3*"
+                            }
+                        },
+                        {
+                            "GT": {
+                                "courses_avg": 98
+                            }
+                        }
+                    ]
+                },
+                {
+                    "AND": [
+                        {
+                            "IS": {
+                                "courses_id": "*3"
+                            }
+                        },
+                        {
+                            "GT": {
+                                "courses_avg": 98
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_instructor",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Not implemented."
+}
+
+

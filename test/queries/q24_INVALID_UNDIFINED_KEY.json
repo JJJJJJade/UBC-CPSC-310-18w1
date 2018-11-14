@@ -1,0 +1,23 @@
+{
+    "title": "wrong key in colomns",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg": 98
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "_coursesNotDefinedKey",
+                "courses_dept",
+                "courses_instructor",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Not implemented."
+}
+
+

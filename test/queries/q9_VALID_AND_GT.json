@@ -1,0 +1,31 @@
+{
+    "title": "SELECT dept, avg, instructor, title, uuid where avg=100 or pass=1000 or fail=110 or audit=1000",
+    "query": {"WHERE": {
+        "AND":[{"GT": {
+            "courses_avg":100
+        }},{"GT":{
+            "courses_pass":1000
+        }},{
+            "GT":{
+                "courses_fail":110
+            }
+        },{
+            "GT":{
+                "courses_audit":1000
+            }
+        }]
+    },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor",
+                "courses_title",
+                "courses_uuid"
+            ],
+            "ORDER": "courses_dept"
+        }
+    },
+    "isQueryValid": true,
+    "result": []
+}

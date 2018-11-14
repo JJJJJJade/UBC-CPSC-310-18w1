@@ -1,0 +1,21 @@
+{
+    "title": "SELECT COURSEID CONTAINS 3 AND COURSE AVG GT 98",
+    "query": {
+        "WHERE": {
+            "FS": {
+                "courses_dept": "cpsc"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+"isQueryValid": false,
+"result": "Not implemented."
+}
+
+

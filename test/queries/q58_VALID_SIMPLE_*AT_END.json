@@ -1,0 +1,80 @@
+{
+    "title": "double AND",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "courses_avg": 96
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_dept": "c*"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {
+            "courses_dept": "cnps",
+            "courses_id": "584",
+            "courses_avg": 96.16
+        },
+        {
+            "courses_dept": "civl",
+            "courses_id": "508",
+            "courses_avg": 96.27
+        },
+        {
+            "courses_dept": "civl",
+            "courses_id": "508",
+            "courses_avg": 96.27
+        },
+        {
+            "courses_dept": "cnps",
+            "courses_id": "584",
+            "courses_avg": 96.33
+        },
+        {
+            "courses_dept": "crwr",
+            "courses_id": "599",
+            "courses_avg": 97
+        },
+        {
+            "courses_dept": "cnps",
+            "courses_id": "574",
+            "courses_avg": 97.47
+        },
+        {
+            "courses_dept": "cnps",
+            "courses_id": "574",
+            "courses_avg": 97.47
+        },
+        {
+            "courses_dept": "crwr",
+            "courses_id": "599",
+            "courses_avg": 98
+        },
+        {
+            "courses_dept": "crwr",
+            "courses_id": "599",
+            "courses_avg": 98
+        },
+        {
+            "courses_dept": "cnps",
+            "courses_id": "574",
+            "courses_avg": 99.19
+        }
+    ]
+}

@@ -299,5 +299,28 @@ describe("Facade D3", function () {
             Log.trace("find error when try to perform query when there is no such dataset");
         }
     });
+    it("PUT test for courses dataset", function () {
+        this.timeout(100000);
+        const data = "./test/data/courses.zip";
+        try {
+            return chai.request(url)
+                .put("/dataset/courses/courses")
+                .attach("body", fs.readFileSync(data), data)
+                .then(function (res: any) {
+                    // some logging here please!
+                    Log.trace("Some logging here");
+                    expect(res.status).to.be.equal(200);
+                    // expect(res.body).to.be.equal();
+                })
+                .catch(function (err: any) {
+                    // some logging here please!
+                    Log.trace("error");
+                    expect.fail();
+                });
+        } catch (err) {
+            // and some more logging here!
+            Log.trace("some more logging");
+        }
+    });
     // The other endpoints work similarly. You should be able to find all instructions at the chai-http documentation
 });

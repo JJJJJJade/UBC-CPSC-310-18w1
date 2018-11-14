@@ -1,0 +1,64 @@
+{
+    "title": "SELECT dept, avg, instructor, title, uuid where avg=100 or pass=1000 or fail=110 or audit=1000",
+    "query": {
+        "WHERE": {
+            "OR": [
+                {
+                    "EQ": {
+                        "courses_avg": 100
+                    }
+                },
+                {
+                    "EQ": {
+                        "courses_pass": 1000
+                    }
+                },
+                {
+                    "EQ": {
+                        "courses_fail": 110
+                    }
+                },
+                {
+                    "EQ": {
+                        "courses_audit": 1000
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor",
+                "courses_title",
+                "courses_uuid"
+            ],
+            "ORDER": "courses_dept"
+        }
+    },
+    "isQueryValid": true,
+
+    "result": [
+        {
+            "courses_dept": "biol",
+            "courses_avg": 68.22,
+            "courses_instructor": "",
+            "courses_title": "gentcs ecol&evol",
+            "courses_uuid": "20542"
+        },
+        {
+            "courses_dept": "math",
+            "courses_avg": 66.09,
+            "courses_instructor": "",
+            "courses_title": "calculus 3",
+            "courses_uuid": "29815"
+        },
+        {
+            "courses_dept": "phys",
+            "courses_avg": 67.5,
+            "courses_instructor": "",
+            "courses_title": "mechanics i",
+            "courses_uuid": "50221"
+        }
+    ]
+}

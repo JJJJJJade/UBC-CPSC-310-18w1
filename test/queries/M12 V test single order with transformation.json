@@ -1,0 +1,109 @@
+{
+    "title": "SELECT dept, avg WHERE avg > 97",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg": 97
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_title",
+                "MaxAvg"
+            ],
+            "ORDER":"MaxAvg"
+        },
+        "TRANSFORMATIONS": {
+            "GROUP": [
+                "courses_title"
+            ],
+            "APPLY": [
+                {
+                    "MaxAvg": {
+                        "MAX": "courses_avg"
+                    }
+                }
+            ]
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {
+            "courses_title": "cor des ed res",
+            "MaxAvg": 97.09
+        },
+        {
+            "courses_title": "harmonic anal i",
+            "MaxAvg": 97.09
+        },
+        {
+            "courses_title": "diff geometry i",
+            "MaxAvg": 97.25
+        },
+        {
+            "courses_title": "eth&profl issues",
+            "MaxAvg": 97.33
+        },
+        {
+            "courses_title": "algb geometry i",
+            "MaxAvg": 97.48
+        },
+        {
+            "courses_title": "res mthd in educ",
+            "MaxAvg": 97.5
+        },
+        {
+            "courses_title": "coll&uni teachng",
+            "MaxAvg": 97.67
+        },
+        {
+            "courses_title": "sem in autism",
+            "MaxAvg": 97.69
+        },
+        {
+            "courses_title": "acad assess schl",
+            "MaxAvg": 97.78
+        },
+        {
+            "courses_title": "thesis",
+            "MaxAvg": 98
+        },
+        {
+            "courses_title": "dev el sk df&hrd",
+            "MaxAvg": 98.45
+        },
+        {
+            "courses_title": "fam nrs pract",
+            "MaxAvg": 98.58
+        },
+        {
+            "courses_title": "assess lrn diffi",
+            "MaxAvg": 98.7
+        },
+        {
+            "courses_title": "cl pro prim care",
+            "MaxAvg": 98.71
+        },
+        {
+            "courses_title": "multimedia sys",
+            "MaxAvg": 98.75
+        },
+        {
+            "courses_title": "educ stds autism",
+            "MaxAvg": 98.8
+        },
+        {
+            "courses_title": "work int health",
+            "MaxAvg": 98.98
+        },
+        {
+            "courses_title": "career planning",
+            "MaxAvg": 99.19
+        },
+        {
+            "courses_title": "algb topology i",
+            "MaxAvg": 99.78
+        }
+    ]
+
+}

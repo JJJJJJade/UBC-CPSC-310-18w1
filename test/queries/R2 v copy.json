@@ -1,0 +1,90 @@
+{
+    "title": "SELECT dept, avg WHERE avg > 97",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "rooms_seats": 200
+                    }
+                },
+                {
+                    "LT": {
+                        "rooms_seats": 300
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_shortname",
+                "rooms_seats"
+            ]
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {
+            "rooms_shortname": "BIOL",
+            "rooms_seats": 228
+        },
+        {
+            "rooms_shortname": "BUCH",
+            "rooms_seats": 275
+        },
+        {
+            "rooms_shortname": "CHEM",
+            "rooms_seats": 265
+        },
+        {
+            "rooms_shortname": "CHEM",
+            "rooms_seats": 240
+        },
+        {
+            "rooms_shortname": "FSC",
+            "rooms_seats": 250
+        },
+        {
+            "rooms_shortname": "GEOG",
+            "rooms_seats": 225
+        },
+        {
+            "rooms_shortname": "HENN",
+            "rooms_seats": 257
+        },
+        {
+            "rooms_shortname": "ANGU",
+            "rooms_seats": 260
+        },
+        {
+            "rooms_shortname": "LSK",
+            "rooms_seats": 205
+        },
+        {
+            "rooms_shortname": "MATH",
+            "rooms_seats": 224
+        },
+        {
+            "rooms_shortname": "SCRF",
+            "rooms_seats": 280
+        },
+        {
+            "rooms_shortname": "PHRM",
+            "rooms_seats": 236
+        },
+        {
+            "rooms_shortname": "SRC",
+            "rooms_seats": 299
+        },
+        {
+            "rooms_shortname": "SRC",
+            "rooms_seats": 299
+        },
+        {
+            "rooms_shortname": "SRC",
+            "rooms_seats": 299
+        }
+    ]
+}
+
+
