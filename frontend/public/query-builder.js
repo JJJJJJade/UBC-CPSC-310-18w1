@@ -67,7 +67,7 @@ function mkWhere(id) {
     if (id === "courses_") {
         // console.log("reach mkwhere when kind is courses");
         let conditionType = document.getElementsByClassName("control-group condition-type")[0];
-        let condition = conditionType.querySelector("input[checked=checked]").getAttribute("id");
+        let condition = conditionType.querySelector("input[checked]").getAttribute("id");
         if (condition === "courses-conditiontype-all") {
             outestCondition = "AND";
         } else if (condition === "courses-conditiontype-any") {
@@ -104,7 +104,7 @@ function mkWhere(id) {
     } else if (id === "rooms_") {
         // console.log("reach mkwhere when kind is rooms");
         let conditionType = document.getElementsByClassName("control-group condition-type")[0];
-        let condition = conditionType.querySelector("input[checked=checked]").getAttribute("id");
+        let condition = conditionType.querySelector("input[checked]").getAttribute("id");
         if (condition === "rooms-conditiontype-all") {
             outestCondition = "AND";
         } else if (condition === "rooms-conditiontype-any") {
