@@ -89,7 +89,7 @@ function mkWhere(id) {
             if (operator === "GT" || operator === "LT" || operator === "EQ") {
                 targetValue = Number(targetValue);
             }
-            console.log(operator + " " + targetfiled + " " + targetValue)
+            // console.log(operator + " " + targetfiled + " " + targetValue)
             if (!ifnot) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
@@ -97,7 +97,7 @@ function mkWhere(id) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
                 currentCondition = {"NOT": currentCondition};
-                console.log(currentCondition);
+                // cosole.log(currentCondition);
             }
             allConds.push(currentCondition);
         }
@@ -126,7 +126,7 @@ function mkWhere(id) {
             if (operator === "GT" || operator === "LT" || operator === "EQ") {
                 targetValue = Number(targetValue);
             }
-            console.log(operator + " " + targetfiled + " " + targetValue)
+            // console.log(operator + " " + targetfiled + " " + targetValue)
             if (!ifnot) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
@@ -134,7 +134,7 @@ function mkWhere(id) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
                 currentCondition = {"NOT": currentCondition};
-                console.log(currentCondition);
+                // console.log(currentCondition);
             }
             allConds.push(currentCondition);
         }
@@ -153,7 +153,7 @@ function mkWhere(id) {
                 case "AND": {
                     where["AND"] = {};
                     where["AND"] = allConds;
-                    console.log(where);
+                    // console.log(where);
                     break;
                 }
                 case "OR": {
@@ -255,7 +255,13 @@ function mkOrders(id) {
             break;
         }
         case 1: {
-            final_order = orderArray[0];
+            if (direction) {
+                final_order = {};
+                final_order["dir"] = "DOWN";
+                final_order["keys"] = orderArray;
+            } else {
+                final_order = orderArray[0];
+            }
             break;
         }
         default: {
@@ -326,7 +332,7 @@ function mkApply(id) {
             thisApply[applyName] = {};
             thisApply[applyName][operator] = targetField;
             applyArray.push(thisApply);
-            console.log(applyArray)
+            //console.log(applyArray)
         }
     } else if (id === "rooms_") {
         query = document.getElementById("tab-rooms");
@@ -342,7 +348,7 @@ function mkApply(id) {
             thisApply[applyName] = {};
             thisApply[applyName][operator] = targetField;
             applyArray.push(thisApply);
-            console.log(applyArray)
+            // console.log(applyArray)
         }
     }
     return applyArray;
