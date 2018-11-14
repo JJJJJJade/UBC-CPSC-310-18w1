@@ -8,11 +8,25 @@ CampusExplorer.sendQuery = function(query) {
     return new Promise(function(fulfill, reject) {
         // TODO: implement!
         try {
-            var requirement = new XMLHttpRequest();
+            let requirement = new XMLHttpRequest();
             requirement.open("POST", "/query");
-            requirement.setRequestHeader('Content-Type', )
+            // requirement.setRequestHeader('Content-Type', )
+            requirement.onload = function () {
+                switch (requirement.status) {
+                    case 200: {
+                        fulfill(JSON.parse(requirement.response));
+                        break;
+                    }
+                    default: {
+                        reject(requirement.status);
+                    }
+                }
+            };
+            try {requirement.send(JSON.stringify(query))} catch (e) {
+                reject({error:e});
+            }
         } catch (e) {
-            //
+            reject({error:e});
         }
         // console.log("CampusExplorer.sendQuery not implemented yet.");
     });
