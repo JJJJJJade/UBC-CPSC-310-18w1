@@ -1,0 +1,22 @@
+{
+    "title": "Missing apply when transformation is present",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg": 97
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_title"
+            ]
+        },
+        "TRANSFORMATIONS": {
+            "GROUP": [
+                "courses_title"
+            ]
+        }
+    },
+    "isQueryValid": false,
+    "result": "missing apply"
+}

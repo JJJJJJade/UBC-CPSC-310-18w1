@@ -1,0 +1,54 @@
+{
+    "title": "SELECT dept, avg WHERE avg > 97",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "rooms_shortname": "LASR"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_name",
+                "rooms_href"
+            ]
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {
+            "rooms_name": "LASR_102",
+            "rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/LASR-102"
+        },
+        {
+            "rooms_name": "LASR_104",
+            "rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/LASR-104"
+        },
+        {
+            "rooms_name": "LASR_105",
+            "rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/LASR-105"
+        },
+        {
+            "rooms_name": "LASR_107",
+            "rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/LASR-107"
+        },
+        {
+            "rooms_name": "LASR_211",
+            "rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/LASR-211"
+        },
+        {
+            "rooms_name": "LASR_5C",
+            "rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/LASR-5C"
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+

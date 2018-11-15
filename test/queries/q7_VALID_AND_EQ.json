@@ -1,0 +1,31 @@
+{
+    "title": "SELECT dept, avg instructor title and uuid where avg=100, pass=1000,fail=110,and audit=1000",
+    "query": {"WHERE": {
+        "AND":[{"EQ": {
+            "courses_avg":100
+        }},{"EQ":{
+            "courses_pass":1000
+        }},{
+            "EQ":{
+                "courses_fail":110
+            }
+        },{
+            "EQ":{
+                "courses_audit":1000
+            }
+        }]
+    },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor",
+                "courses_title",
+                "courses_uuid"
+            ],
+            "ORDER": "courses_dept"
+        }
+    },
+    "isQueryValid": true,
+    "result": []
+}

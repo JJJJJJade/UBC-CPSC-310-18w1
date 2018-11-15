@@ -400,19 +400,31 @@ function GetBuilding(body: any, buildings: any) {
         }
         if (bdkey !== "childNodes") {
             if (!skip && bdkey !== "nodeName") {
-                if (count % 4 === 1) {
-                    let srtn: any = body[bdkey].trim();
-                    shortname = srtn;
-                } else if (count % 4 === 2) {
-                    let fln: any = body[bdkey].trim();
-                    fullname = fln;
-                } else if (count % 4 === 3) {
-                    let addre: any = body[bdkey].trim();
-                    address = addre;
-                } else {
-                    buildings[shortname] = [address, fullname];
+                switch (count % 4) {
+                    case 1: {
+                        let srtn: any = body[bdkey].trim();
+                        shortname = srtn;
+                        count++;
+                        break;
+                    }
+                    case 2: {
+                        let fln: any = body[bdkey].trim();
+                        fullname = fln;
+                        count++;
+                        break;
+                    }
+                    case 3: {
+                        let addre: any = body[bdkey].trim();
+                        address = addre;
+                        count++;
+                        break;
+                    }
+                    default : {
+                        buildings[shortname] = [address, fullname];
+                        count++;
+                        break;
+                    }
                 }
-                count++;
             }
         } else {
             let childNodes = body["childNodes"];
@@ -443,26 +455,41 @@ function GetRoom(root: any, fileName: any, rooms: any, Bfullname: any, Baddress:
         }
         if (rtkey !== "childNodes") {
             if (!skip) {
-                if (rCount % 5 === 1) {
-                    let roomNumber: any = root[rtkey].trim();
-                    currentroom["number"] = roomNumber;
-                } else if (rCount % 5 === 2) {
-                    let seat: any = root[rtkey].trim();
-                    currentroom["seats"] = Number(seat);
-                } else if (rCount % 5 === 3) {
-                    let roomFurniture: any = root[rtkey].trim();
-                    currentroom["furniture"] = roomFurniture;
-                } else if (rCount % 5 === 4) {
-                    let roomType: any = root[rtkey].trim();
-                    currentroom["type"] = roomType;
-                } else {
-                    currentroom["shortname"] = fileName;
-                    currentroom["fullname"] = Bfullname;
-                    currentroom["address"] = Baddress;
-                    rooms.push(currentroom);
-                    currentroom = {};
+                switch (rCount % 5) {
+                    case 1: {
+                        let roomNumber: any = root[rtkey].trim();
+                        currentroom["number"] = roomNumber;
+                        rCount++;
+                        break;
+                    }
+                    case 2: {
+                        let seat: any = root[rtkey].trim();
+                        currentroom["seats"] = Number(seat);
+                        rCount++;
+                        break;
+                    }
+                    case 3: {
+                        let roomFurniture: any = root[rtkey].trim();
+                        currentroom["furniture"] = roomFurniture;
+                        rCount++;
+                        break;
+                    }
+                    case 4: {
+                        let roomType: any = root[rtkey].trim();
+                        currentroom["type"] = roomType;
+                        rCount++;
+                        break;
+                    }
+                    default: {
+                        currentroom["shortname"] = fileName;
+                        currentroom["fullname"] = Bfullname;
+                        currentroom["address"] = Baddress;
+                        rooms.push(currentroom);
+                        currentroom = {};
+                        rCount++;
+                        break;
+                    }
                 }
-                rCount++;
             }
         } else {
             for (let childNode of root["childNodes"]) {
@@ -471,7 +498,6 @@ function GetRoom(root: any, fileName: any, rooms: any, Bfullname: any, Baddress:
         }
     }
 }
-
 function GetBody(document: any): any {
     /*let result: any[] = [];
     for (let node of document.childNodes) {

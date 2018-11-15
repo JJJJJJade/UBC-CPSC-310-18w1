@@ -1,0 +1,45 @@
+{
+    "title": "SELECT dept, avg WHERE avg > 97",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg": 99
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor",
+                "courses_title",
+                "courses_uuid"
+            ],
+            "ORDER": "courses_dept"
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {
+            "courses_dept": "cnps",
+            "courses_avg": 99.19,
+            "courses_instructor": "cox, daniel",
+            "courses_title": "career planning",
+            "courses_uuid": "26777"
+        },
+        {
+            "courses_dept": "math",
+            "courses_avg": 99.78,
+            "courses_instructor": "gomez, jose",
+            "courses_title": "algb topology i",
+            "courses_uuid": "5373"
+        },
+        {
+            "courses_dept": "math",
+            "courses_avg": 99.78,
+            "courses_instructor": "",
+            "courses_title": "algb topology i",
+            "courses_uuid": "5374"
+        }
+    ]
+}
+

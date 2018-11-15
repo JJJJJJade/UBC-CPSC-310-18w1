@@ -1,0 +1,21 @@
+{
+    "title": "Missing group when transformation is present",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg": 97
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_title"
+            ]
+        },
+        "TRANSFORMATIONS": {
+            "APPLY": [
+            ]
+        }
+    },
+    "isQueryValid": false,
+    "result": "MISSING GROUP"
+}

@@ -1,0 +1,109 @@
+{
+    "title": "SELECT dept, avg WHERE avg > 97",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "rooms_shortname": "ORCH"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_shortname",
+                "rooms_lat"
+            ]
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        },
+        {
+            "rooms_shortname": "ORCH",
+            "rooms_lat": 49.26048
+        }
+    ]
+}
+
+
+
+
+
+

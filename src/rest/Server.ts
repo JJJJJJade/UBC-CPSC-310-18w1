@@ -15,6 +15,7 @@ export default class Server {
 
     private port: number;
     private rest: restify.Server;
+    private static insightFacade = new InsightFacade();
 
     constructor(port: number) {
         Log.info("Server::<init>( " + port + " )");
@@ -145,10 +146,10 @@ export default class Server {
            } else if (kind === "rooms") {
                thisKind = InsightDatasetKind.Rooms;
            }
-           let insightFacade = new InsightFacade();
+           // let insightFacade = new InsightFacade();
            let id: string = req.params.id;
            let addBuffer = new Buffer(req.params.body).toString("base64");
-           insightFacade.addDataset(id, addBuffer, thisKind).then(function (ressult: any) {
+           Server.insightFacade.addDataset(id, addBuffer, thisKind).then(function (ressult: any) {
                Log.trace("");
                res.json(200, {result: ressult});
                return next();
@@ -162,9 +163,9 @@ export default class Server {
     }
     private static deleteDataset(req: restify.Request, res: restify.Response, next: restify.Next) {
         try {
-            let insightFacade = new InsightFacade();
+            // let insightFacade = new InsightFacade();
             let id: string = req.params.id;
-            insightFacade.removeDataset(id).then(function (ressult: any) {
+            Server.insightFacade.removeDataset(id).then(function (ressult: any) {
                 Log.trace("delete success");
                 res.json(200, {result: ressult});
                 return next();
@@ -185,9 +186,9 @@ export default class Server {
     }
     private static postQuery(req: restify.Request, res: restify.Response, next: restify.Next) {
         try {
-            let insightFacade = new InsightFacade();
+            // let insightFacade = new InsightFacade();
             const queryMain = req.body;
-            insightFacade.performQuery(queryMain).then(function (ressult: any) {
+            Server.insightFacade.performQuery(queryMain).then(function (ressult: any) {
                 Log.trace("perform success");
                 res.json(200, {result: ressult});
                 return next();
@@ -201,8 +202,8 @@ export default class Server {
     }
     private static getDatasets(req: restify.Request, res: restify.Response, next: restify.Next) {
         try {
-            let insightFacade = new InsightFacade();
-            insightFacade.listDatasets().then(function (ressult: any) {
+            // let insightFacade = new InsightFacade();
+            Server.insightFacade.listDatasets().then(function (ressult: any) {
                 Log.trace("list success");
                 res.json(200, {result: ressult});
                 return next();
