@@ -843,39 +843,20 @@ function ListResult(satisfiedData: any[], columns: any, order: any): any[] {
                         return 1;
                     } else if (a[odk] < b[odk]) {
                         return -1;
+                    } else {
+                        return 0;
                     }
                 } else if (dir === "DOWN") {
                     if (a[odk] > b[odk]) {
                         return -1;
                     } else if (a[odk] > b[odk]) {
                         return 1;
+                    } else {
+                        return 0;
                     }
                 }
             }
         });
-        /*
-        for (i = orderkeys.length - 1; i >= 0; i--) {
-            Log.trace("Go through the order key " + orderkeys[i]);
-            let orderMain: string = ";";
-            if (!(orderkeys[i].indexOf("_") === -1)) {
-                orderMain = orderkeys[i].split("_")[1];
-            }
-            if (mKeyArray.includes(orderMain) ||
-            sKeyArray.includes(orderMain) || applyKeys.includes(orderkeys[i])) {
-                if (dir === "DOWN") {
-                    Log.trace("List the results with descending " + orderkeys[i]);
-                    listedResult.sort(
-                        (a, b) => (a[orderkeys[i]] >
-                        b[orderkeys[i]] ? 1 : ((b[orderkeys[i]] > a[orderkeys[i]] ? -1 : 0)))
-                    );
-                } else if (dir === "UP") {
-                    Log.trace("List the results with ascenndign " + orderkeys[i]);
-                    listedResult.sort(
-                        (a, b) => (a[orderkeys[i]] > b[orderkeys[i]] ?
-                         1 : ((b[orderkeys[i]] > a[orderkeys[i]] ? -1 : 0))));
-                }
-            }
-        }*/
     } else {
         Log.trace("Reach list data when no order requriment");
         /*for (let data of satisfiedData) {
@@ -1045,7 +1026,12 @@ function validTransformations(transformations: any): boolean {
                 Log.trace("Apply target string is not defined");
                 return false;
             }
-
+            if (token === "MIN" || token === "MAX" || token === "AVG" || token === "SUM") {
+                if (!(mKeyArray.includes(applyTarget))) {
+                    Log.trace(token + " can only apply to numeric fileds");
+                    return false;
+                }
+            }
         }
         Log.trace("Transformation is valid");
         return true;
