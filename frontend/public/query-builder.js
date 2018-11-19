@@ -49,6 +49,7 @@ CampusExplorer.buildQuery = function () {
         }
         query["TRANSFORMATIONS"] = transformations;
     }
+    console.log("This query is " + JSON.stringify(query));
     return query;
 };
 
@@ -59,7 +60,7 @@ function mkWhere(id) {
     let allconditions;
     let query;
     if (id === "courses_") {
-        // console.log("reach mkwhere when kind is courses");
+        console.log("reach mkwhere when kind is courses");
         let conditionType = document.getElementsByClassName("control-group condition-type")[0];
         let condition = conditionType.querySelector("input[checked]").getAttribute("id");
         if (condition === "courses-conditiontype-all") {
@@ -69,16 +70,24 @@ function mkWhere(id) {
         } else if (condition === "courses-conditiontype-none") {
             outestCondition = "NotAll";
         }
+        // console.log("the condition-type is " + outestCondition);
         query = document.getElementById("tab-courses");
         allconditions = query.querySelectorAll(".control-group.condition");
         for (let eachCond of allconditions) {
             let currentCondition = {};
-            let ifnot = eachCond.querySelector("input[type=checkbox]").checked;
+            let ifnot = null;
+            ifnot = eachCond.querySelector("input[type=checkbox]").checked;
             let fields = eachCond.getElementsByClassName("control fields")[0];
-            let targetfiled = id + fields.querySelector("option[selected=selected]").value.trim().toLowerCase();
-            let operator = eachCond.getElementsByClassName("control operators")[0]
-                .querySelector("option[selected=selected]").value.trim();
-            let targetValue = eachCond.getElementsByClassName("control term")[0]
+            // console.log(ifnot);
+            let targetfiled = "";
+            targetfiled = id + fields.querySelector("option[selected=selected]").value.trim().toLowerCase();
+            // console.log(targetfiled);
+            let operator = "";
+            operator = eachCond.getElementsByClassName("control operators")[0]
+                .querySelector("option[selected]").value.trim();
+            // console.log(operator);
+            let targetValue = "";
+            targetValue = eachCond.getElementsByClassName("control term")[0]
                 .querySelector("input[type=text]").value.trim();
             if (operator === "GT" || operator === "LT" || operator === "EQ") {
                 targetValue = Number(targetValue);
@@ -91,7 +100,7 @@ function mkWhere(id) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
                 currentCondition = {"NOT": currentCondition};
-                // cosole.log(currentCondition);
+                console.log(currentCondition);
             }
             allConds.push(currentCondition);
         }
@@ -120,7 +129,7 @@ function mkWhere(id) {
             if (operator === "GT" || operator === "LT" || operator === "EQ") {
                 targetValue = Number(targetValue);
             }
-            // console.log(operator + " " + targetfiled + " " + targetValue)
+            console.log(operator + " " + targetfiled + " " + targetValue)
             if (!ifnot) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
@@ -128,7 +137,7 @@ function mkWhere(id) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
                 currentCondition = {"NOT": currentCondition};
-                // console.log(currentCondition);
+                console.log(currentCondition);
             }
             allConds.push(currentCondition);
         }
@@ -190,19 +199,25 @@ function mkColumns(id) {
     }
     rawColumns = query.getElementsByClassName("form-group columns")[0];
     colData = rawColumns.getElementsByClassName("control-group")[0];
-    let cols = colData.getElementsByClassName("control field");
-    let extra_cols = colData.getElementsByClassName("control transformation");
+    let cols = null;
+    cols = colData.getElementsByClassName("control field");
+    let extra_cols = null;
+    extra_cols = colData.getElementsByClassName("control transformation");
     for (let eachCol of cols) {
-        let ifselected = eachCol.querySelector("input[type=checkbox]").checked;
+        let ifselected = null;
+        ifselected = eachCol.querySelector("input[type=checkbox]").checked;
         if (ifselected) {
-            let colName = id + eachCol.querySelector("input[type=checkbox]").value;
+            let colName = null;
+            colName = id + eachCol.querySelector("input[type=checkbox]").value;
             colomnArray.push(colName);
         }
     }
     for (let eachCol of extra_cols) {
-        let ifselected = eachCol.querySelector("input[type=checkbox]").checked;
+        let ifselected = null;
+        ifselected = eachCol.querySelector("input[type=checkbox]").checked;
         if (ifselected) {
-            let colName = eachCol.querySelector("input[type=checkbox]").value;
+            let colName = null;
+            colName = eachCol.querySelector("input[type=checkbox]").value;
             colomnArray.push(colName);
         }
     }
@@ -222,10 +237,11 @@ function mkOrders(id) {
         query = document.getElementById("tab-rooms");
     }
     orderfields = query.getElementsByClassName("control order fields")[0];
-    orders = orderfields.querySelectorAll("option[selected=selected]");
-    direction = query.getElementsByClassName("control descending")[0].querySelector("input[type=checkbox]").checked;
+    orders = orderfields.querySelectorAll("option[selected]");
+    direction = query.getElementsByClassName("control descending")[0].querySelector("input[type]").checked;
     for (let eachOrder of orders) {
-        let orderMain = id + eachOrder.value;
+        let orderMain = null;
+        orderMain = id + eachOrder.value;
         orderArray.push(orderMain);
     }
     switch (orderArray.length) {
@@ -269,12 +285,14 @@ function mkGroup(id) {
         query = document.getElementById("tab-rooms");
     }
     rowGroups = query.getElementsByClassName("form-group groups")[0];
-    let groups = rowGroups.getElementsByClassName("control field");
+    let groups = null;
+    groups = rowGroups.getElementsByClassName("control field");
     for (let eachGroup of groups) {
         // console.log(eachGroup)
-        let ifselected = eachGroup.querySelector("input[type=checkbox]").checked;
+        let ifselected = null;
+        ifselected = eachGroup.querySelector("input[type]").checked;
         if (ifselected) {
-            let groupName = id + eachGroup.querySelector("input[type=checkbox]").value;
+            let groupName = id + eachGroup.querySelector("input[type]").value;
             //console.log(groupName)
             GroupArray.push(groupName);
         }
@@ -293,13 +311,14 @@ function mkApply(id) {
         query = document.getElementById("tab-rooms");
         }
     rowTrans = query.getElementsByClassName("form-group transformations")[0];
-    let trans = rowTrans.getElementsByClassName("control-group transformation");
+    let trans = null;
+    trans = rowTrans.getElementsByClassName("control-group transformation");
     for (let eachTran of trans) {
-        let applyName = eachTran.querySelector("input[type=text]").value;
+        let applyName = eachTran.querySelector("input[type]").value;
         let operatorList = eachTran.getElementsByClassName("control operators")[0];
-        let operator = operatorList.querySelector("option[selected=selected]").value;
+        let operator = operatorList.querySelector("option[selected]").value;
         let fields = eachTran.getElementsByClassName("control fields")[0];
-        let targetField = id + fields.querySelector("option[selected=selected]").value;
+        let targetField = id + fields.querySelector("option[selected]").value;
         let thisApply = {};
         thisApply[applyName] = {};
         thisApply[applyName][operator] = targetField;

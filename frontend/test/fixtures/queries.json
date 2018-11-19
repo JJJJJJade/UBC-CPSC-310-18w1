@@ -237,5 +237,59 @@
                 {"Complex":{"SUM":"courses_fail"}}
             ]
         }
+    },
+    "query14":{
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "courses_avg": 97
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_dept": "math"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_avg",
+                "courses_dept"
+            ],
+            "ORDER": {
+                "dir": "UP",
+                "keys": [
+                    "courses_avg"
+                ]
+            }
+        }
+    },
+    "query16":{
+        "WHERE": {
+            "OR": [
+                {
+                    "NOT": {
+                        "EQ": {
+                            "courses_avg": 1
+                        }
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_dept": "cpsc"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_audit",
+                "courses_avg",
+                "courses_id",
+                "courses_uuid"
+            ]
+        }
     }
 }
