@@ -1,0 +1,33 @@
+{
+    "title": "   macomparison is not object  ",
+    "query": {
+        "WHERE": {
+            "GT": ["courses_avg"]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_title",
+                "overallAvg"
+            ],
+            "ORDER":{
+                "dir": "left",
+                "keys":["courses_tile"]
+            }
+        },
+        "TRANSFORMATIONS": {
+            "GROUP": [
+                "courses_title"
+            ],
+            "APPLY": [
+                {
+                    "overallAvg": {
+                        "AVG": "courses_avg"
+                    }
+                }
+            ]
+        }
+    },
+    "isQueryValid": false,
+    "result": ""
+}
+

@@ -1,0 +1,25 @@
+{
+    "title": "where is not object",
+    "query": {
+        "WHERE": [],
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_name",
+                "rooms_href"
+            ]
+        }
+    },
+    "isQueryValid": false,
+    "result":"invalid"
+}
+
+
+
+
+
+
+
+
+
+
+

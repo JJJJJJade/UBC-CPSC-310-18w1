@@ -148,7 +148,7 @@
     },
     "query9": {
         "WHERE":{
-            "NOT":{"AND": [
+            "NOT":{"OR": [
                 {"GT":{"courses_avg": 98}},
                 {"NOT":{"IS":{"courses_dept": "cpsc"}}},
                 {"NOT":{"IS":{"courses_title": "aefaf"}}}
@@ -167,6 +167,75 @@
             "GROUP":["courses_avg",
                 "courses_dept"],
             "APPLY":[{"maxAvg": {"MAX": "courses_avg"}}, {"countDep":{"COUNT":"courses_dept"}}]
+        }
+    },
+    "query10":{
+        "WHERE":{
+            "AND":[
+                {"NOT":{"IS":{"courses_title": "CPSC*"}}},
+                {"NOT":{"LT":{"courses_avg": 98}}},
+                {"IS":{"courses_dept": "*CPSC"}}
+            ]
+        },
+        "OPTIONS":{
+            "COLUMNS":[
+                "courses_avg",
+                "courses_dept"
+            ],
+            "ORDER":{
+                "dir": "DOWN",
+                "keys": ["courses_avg","courses_dept"]
+            }
+        }
+    },
+    "query11":{
+        "WHERE":{
+
+        },
+        "OPTIONS":{
+            "COLUMNS":[]
+        }
+    },
+    "query12": {
+        "WHERE": {
+            "AND":[
+                {"GT": {"courses_avg": 0}},
+                {"LT":{"courses_pass":0}},
+                {"EQ":{"courses_audit":0}},
+                {"IS":{"courses_dept":"0"}},
+                {"EQ":{"courses_fail":0}},
+                {"IS":{"courses_id":"0"}},
+                {"IS":{"courses_instructor":"0"}},
+                {"IS":{"courses_uuid":"0"}},
+                {"EQ":{"courses_year":0}},
+                {"IS":{"courses_title":"0"}}
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_avg"
+            ]
+        }
+    },
+    "query13":{
+        "WHERE":{
+            "GT":{"courses_avg": 98}
+        },
+        "OPTIONS":{
+            "COLUMNS":[
+                "courses_dept",
+                "courses_title",
+                "Super",
+                "Complex"
+            ]
+        },
+        "TRANSFORMATIONS":{
+            "GROUP":["courses_dept",
+                "courses_title"],
+            "APPLY":[
+                {"Super":{"COUNT":"courses_avg"}},
+                {"Complex":{"SUM":"courses_fail"}}
+            ]
         }
     }
 }

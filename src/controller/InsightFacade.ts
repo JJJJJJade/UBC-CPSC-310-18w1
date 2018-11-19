@@ -255,7 +255,7 @@ export default class InsightFacade implements IInsightFacade {
                                     rooms = FMD(rooms, id);
                                     let nRows: number = rooms.length;
                                     Log.trace("rooms length is" + rooms.length);
-                                    Log.trace("rooms are: " + rooms);
+                                    // Log.trace("rooms are: " + rooms);
                                     if (rooms.length === 0) {
                                         return Promise.reject((new InsightError("There is no valid content")));
                                     } else {
@@ -329,7 +329,7 @@ export default class InsightFacade implements IInsightFacade {
                     Self.idList.push(file);
                 }
             });
-            Log.trace("current ids are " + Self.idList);
+            // Log.trace("current ids are " + Self.idList);
             if (!validQuery(query)) {
                 return reject(new InsightError("Query is not valid"));
             }
@@ -359,7 +359,7 @@ export default class InsightFacade implements IInsightFacade {
             } catch (err) {
                 return reject(new InsightError("file reading error"));
             }
-            Log.trace("stat length is: " + stat.length);
+            // Log.trace("stat length is: " + stat.length);
             let satisfiedData: any[] = [];
             let result: any;
             if ("ORDER" in options) {
@@ -368,7 +368,7 @@ export default class InsightFacade implements IInsightFacade {
                 order = null;
             }
             let filters: any[] = Object.keys(where);
-            Log.trace("filters are " + where);
+            // Log.trace("filters are " + where);
             satisfiedData = search(stat, where);
             if ("TRANSFORMATIONS" in query) {
                 let transformations: any = query["TRANSFORMATIONS"];
@@ -892,6 +892,10 @@ function validQuery(query: any): boolean {
         return false;
     }
     let where: any = query["WHERE"];
+    if (isArray(where) || isString(where)) {
+        Log.trace("WHERE cannot be array");
+        return false;
+    }
     if (!isObject(where)) {
         Log.trace("WHERE is not a Object");
         return false;
@@ -1043,7 +1047,7 @@ function validTransformations(transformations: any): boolean {
 }
 
 function validOptions(options: any, hasTrans: boolean): boolean {
-    Log.trace("reach validOptions");
+    // Log.trace("reach validOptions");
     let oKeys: any[] = Object.keys(options);
     // console.log(Object.keys(options));
     if (oKeys.length > 2 || oKeys.length === 0) {
@@ -1104,7 +1108,7 @@ function validOptions(options: any, hasTrans: boolean): boolean {
             return false;
         }
         if (isString(order)) {
-            Log.trace("order is a string");
+            // Log.trace("order is a string");
             if (!(columns.includes(order))) {
                 Log.trace("ORDER is not in COLUMN");
                 return false;
@@ -1147,7 +1151,7 @@ function validOptions(options: any, hasTrans: boolean): boolean {
 }
 
 function validFilter(filter: any): boolean {
-    Log.trace("Reach valid filter check");
+    // Log.trace("Reach valid filter check");
     let keys: any[] = Object.keys(filter);
     if (keys.length === 0) {
         Log.trace("WHERE has no content");
@@ -1159,7 +1163,7 @@ function validFilter(filter: any): boolean {
     }
     let key = keys[0];
     if (key === "AND" || key === "OR") {
-        Log.trace("Reach logic comparitor check");
+        // Log.trace("Reach logic comparitor check");
         let arrayOfFilters: any[] = filter[key];
         if (!isArray(arrayOfFilters)) {
             Log.trace("filters are not array");
@@ -1175,7 +1179,7 @@ function validFilter(filter: any): boolean {
             }
         }
     } else if (key === "LT" || key === "GT" || key === "EQ") {
-        Log.trace("Reach mComparison validity check");
+        // Log.trace("Reach mComparison validity check");
         let mComparison: any = filter[key];
         if (!isObject(mComparison)) {
             Log.trace("mComparison is not an object");
