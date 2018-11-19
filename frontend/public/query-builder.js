@@ -96,16 +96,17 @@ function mkWhere(id) {
             if (!ifnot) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
+                console.log(JSON.stringify("This condition is " + currentCondition));
             } else {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
                 currentCondition = {"NOT": currentCondition};
-                console.log(currentCondition);
+                console.log(JSON.stringify("This condition is " + currentCondition));
             }
             allConds.push(currentCondition);
         }
     } else if (id === "rooms_") {
-        // console.log("reach mkwhere when kind is rooms");
+        console.log("reach mkwhere when kind is rooms");
         let conditionType = document.getElementsByClassName("control-group condition-type")[0];
         let condition = conditionType.querySelector("input[checked]").getAttribute("id");
         if (condition === "rooms-conditiontype-all") {
@@ -144,6 +145,7 @@ function mkWhere(id) {
     }
     switch (allConds.length) {
         case 0: {
+            console.log("There is no condition");
             where = {};
             break;
         }
@@ -151,10 +153,12 @@ function mkWhere(id) {
             // where = allConds[0];
             switch (outestCondition) {
                 case "NotAll":{
+                    console.log("There is 1 not condition, ");
                     where["NOT"] = allConds[0];
                     break;
                 }
                 default:{
+                    console.log("There is 1 condition");
                     where = allConds[0];
                     break;
                 }
@@ -164,17 +168,20 @@ function mkWhere(id) {
         default: {
             switch (outestCondition) {
                 case "AND": {
+                    console.log("There is more than 1 condition, and");
                     where["AND"] = {};
                     where["AND"] = allConds;
                     // console.log(where);
                     break;
                 }
                 case "OR": {
+                    console.log("There is more than 1 condition, or");
                     where["OR"] = {};
                     where["OR"] = allConds;
                     break;
                 }
                 case "NotAll": {
+                    console.log("There is more than 1 conditions, not all");
                     where["NOT"] = {};
                     let notALl = {"OR" : allConds};
                     where["NOT"] = notALl;
@@ -184,6 +191,7 @@ function mkWhere(id) {
             break;
         }
     }
+    console.log("The where is " + JSON.stringify(where));
     return where;
 }
 
@@ -221,6 +229,7 @@ function mkColumns(id) {
             colomnArray.push(colName);
         }
     }
+    console.log("columns are " + colomnArray);
     return colomnArray;
 }
 
