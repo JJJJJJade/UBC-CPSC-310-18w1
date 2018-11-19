@@ -291,5 +291,25 @@
                 "courses_uuid"
             ]
         }
+    },
+    "query17":{
+        "WHERE":{
+
+        },
+        "OPTIONS":{
+            "COLUMNS":["ijo", "ooo"],
+            "ORDER":{
+                "dir": "UP",
+                "keys":["ijo", "ooo"]
+            }
+        },
+        "TRANSFORMATIONS":{
+            "GROUP":["courses_dept",
+                "courses_title"],
+            "APPLY":[
+                {"ijo":{"COUNT":"courses_avg"}},
+                {"ooo":{"COUNT":"courses_audit"}}
+            ]
+        }
     }
 }

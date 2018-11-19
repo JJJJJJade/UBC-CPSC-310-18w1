@@ -56,7 +56,7 @@ CampusExplorer.buildQuery = function () {
 function mkWhere(id) {
     let where = {};
     let allConds = [];
-    let outestCondition = "";
+    let outestCondition = "AND";
     let allconditions;
     let query;
     if (id === "courses_") {
@@ -130,7 +130,7 @@ function mkWhere(id) {
             if (operator === "GT" || operator === "LT" || operator === "EQ") {
                 targetValue = Number(targetValue);
             }
-            console.log(operator + " " + targetfiled + " " + targetValue)
+            console.log(operator + " " + targetfiled + " " + targetValue);
             if (!ifnot) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
@@ -153,7 +153,7 @@ function mkWhere(id) {
             // where = allConds[0];
             switch (outestCondition) {
                 case "NotAll":{
-                    console.log("There is 1 not condition, ");
+                    console.log("There is 1 not condition");
                     where["NOT"] = allConds[0];
                     break;
                 }
@@ -166,6 +166,7 @@ function mkWhere(id) {
             break;
         }
         default: {
+            console.log("reach where there are more than 1 conditions");
             switch (outestCondition) {
                 case "AND": {
                     console.log("There is more than 1 condition, and");
@@ -234,6 +235,9 @@ function mkColumns(id) {
 }
 
 function mkOrders(id) {
+    let mKeyArray = ["avg", "pass", "fail", "audit", "year", "lat", "lon", "seats"];
+    let sKeyArray = ["dept", "title", "instructor", "uuid", "id", "fullname", "shortname", "number", "name"
+        , "address", "type", "furniture", "href"];
     let query;
     let orderfields;
     let orders;
@@ -250,7 +254,11 @@ function mkOrders(id) {
     direction = query.getElementsByClassName("control descending")[0].querySelector("input[type]").checked;
     for (let eachOrder of orders) {
         let orderMain = null;
-        orderMain = id + eachOrder.value;
+        if (mKeyArray.includes(eachOrder.value) || sKeyArray.includes(eachOrder.value)) {
+            orderMain = id + eachOrder.value;
+        } else {
+            orderMain = eachOrder.value;
+        }
         orderArray.push(orderMain);
     }
     switch (orderArray.length) {
