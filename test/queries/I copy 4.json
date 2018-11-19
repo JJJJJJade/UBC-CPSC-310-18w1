@@ -1,0 +1,20 @@
+{
+    "title": "transformations is not object but array",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg": 97
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_title",
+                "overallAvg"
+            ]
+        },
+        "TRANSFORMATIONS": []
+    },
+    "isQueryValid": false,
+    "result": ""
+}
+

@@ -49,12 +49,6 @@ CampusExplorer.buildQuery = function () {
         }
         query["TRANSFORMATIONS"] = transformations;
     }
-    // query["COLUMNS"] = columns
-    // document.getElementbyClassName(" ")[0].textcontent find active tab
-    // newDocument = document.getElementById("tab-courses")
-    // conditions = newDocument.getElementByClass("form-group conditions")
-    // selectQueryAll find
-    // console.log("CampusExplorer.buildQuery not implemented yet.");
     return query;
 };
 
@@ -145,7 +139,17 @@ function mkWhere(id) {
             break;
         }
         case 1: {
-            where = allConds[0];
+            // where = allConds[0];
+            switch (outestCondition) {
+                case "NotAll":{
+                    where["NOT"] = allConds[0];
+                    break;
+                }
+                default:{
+                    where = allConds[0];
+                    break;
+                }
+            }
             break;
         }
         default: {
@@ -163,7 +167,7 @@ function mkWhere(id) {
                 }
                 case "NotAll": {
                     where["NOT"] = {};
-                    let notALl = {"AND" : allConds};
+                    let notALl = {"OR" : allConds};
                     where["NOT"] = notALl;
                     break;
                 }
@@ -181,43 +185,25 @@ function mkColumns(id) {
     let colomnArray = [];
     if (id === "courses_") {
         query = document.getElementById("tab-courses");
-        rawColumns = query.getElementsByClassName("form-group columns")[0];
-        colData = rawColumns.getElementsByClassName("control-group")[0];
-        let cols = colData.getElementsByClassName("control field");
-        let extra_cols = colData.getElementsByClassName("control transformation");
-        for (let eachCol of cols) {
-            let ifselected = eachCol.querySelector("input[type=checkbox]").checked;
-            if (ifselected) {
-                let colName = id + eachCol.querySelector("input[type=checkbox]").value;
-                colomnArray.push(colName);
-            }
-        }
-        for (let eachCol of extra_cols) {
-            let ifselected = eachCol.querySelector("input[type=checkbox]").checked;
-            if (ifselected) {
-                let colName = eachCol.querySelector("input[type=checkbox]").value;
-                colomnArray.push(colName);
-            }
-        }
     } else if (id === "rooms_") {
         query = document.getElementById("tab-rooms");
-        rawColumns = query.getElementsByClassName("form-group columns")[0];
-        colData = rawColumns.getElementsByClassName("control-group")[0];
-        let cols = colData.getElementsByClassName("control field");
-        let extra_cols = colData.getElementsByClassName("control transformation");
-        for (let eachCol of cols) {
-            let ifselected = eachCol.querySelector("input[type=checkbox]").checked;
-            if (ifselected) {
-                let colName = id + eachCol.querySelector("input[type=checkbox]").value;
-                colomnArray.push(colName);
-            }
+    }
+    rawColumns = query.getElementsByClassName("form-group columns")[0];
+    colData = rawColumns.getElementsByClassName("control-group")[0];
+    let cols = colData.getElementsByClassName("control field");
+    let extra_cols = colData.getElementsByClassName("control transformation");
+    for (let eachCol of cols) {
+        let ifselected = eachCol.querySelector("input[type=checkbox]").checked;
+        if (ifselected) {
+            let colName = id + eachCol.querySelector("input[type=checkbox]").value;
+            colomnArray.push(colName);
         }
-        for (let eachCol of extra_cols) {
-            let ifselected = eachCol.querySelector("input[type=checkbox]").checked;
-            if (ifselected) {
-                let colName = eachCol.querySelector("input[type=checkbox]").value;
-                colomnArray.push(colName);
-            }
+    }
+    for (let eachCol of extra_cols) {
+        let ifselected = eachCol.querySelector("input[type=checkbox]").checked;
+        if (ifselected) {
+            let colName = eachCol.querySelector("input[type=checkbox]").value;
+            colomnArray.push(colName);
         }
     }
     return colomnArray;
@@ -232,22 +218,15 @@ function mkOrders(id) {
     let final_order = [];
     if (id === "courses_") {
         query = document.getElementById("tab-courses");
-        orderfields = query.getElementsByClassName("control order fields")[0];
-        orders = orderfields.querySelectorAll("option[selected=selected]");
-        direction = query.getElementsByClassName("control descending")[0].querySelector("input[type=checkbox]").checked;
-        for (let eachOrder of orders) {
-            let orderMain = id + eachOrder.value;
-            orderArray.push(orderMain);
-        }
     } else if (id === "rooms_") {
         query = document.getElementById("tab-rooms");
-        orderfields = query.getElementsByClassName("control order fields")[0];
-        orders = orderfields.querySelectorAll("option[selected=selected]");
-        direction = query.getElementsByClassName("control descending")[0].querySelector("input[type=checkbox]").checked;
-        for (let eachOrder of orders) {
-            let orderMain = id + eachOrder.value;
-            orderArray.push(orderMain);
-        }
+    }
+    orderfields = query.getElementsByClassName("control order fields")[0];
+    orders = orderfields.querySelectorAll("option[selected=selected]");
+    direction = query.getElementsByClassName("control descending")[0].querySelector("input[type=checkbox]").checked;
+    for (let eachOrder of orders) {
+        let orderMain = id + eachOrder.value;
+        orderArray.push(orderMain);
     }
     switch (orderArray.length) {
         case 0: {
@@ -286,29 +265,18 @@ function mkGroup(id) {
     let GroupArray = [];
     if (id === "courses_") {
         query = document.getElementById("tab-courses");
-        rowGroups = query.getElementsByClassName("form-group groups")[0];
-        let groups = rowGroups.getElementsByClassName("control field");
-        for (let eachGroup of groups) {
-            // console.log(eachGroup)
-            let ifselected = eachGroup.querySelector("input[type=checkbox]").checked;
-            if (ifselected) {
-                let groupName = id + eachGroup.querySelector("input[type=checkbox]").value;
-                //console.log(groupName)
-                GroupArray.push(groupName);
-            }
-        }
     } else if (id === "rooms_") {
         query = document.getElementById("tab-rooms");
-        rowGroups = query.getElementsByClassName("form-group groups")[0];
-        let groups = rowGroups.getElementsByClassName("control field");
-        for (let eachGroup of groups) {
-            // console.log(eachGroup)
-            let ifselected = eachGroup.querySelector("input[type=checkbox]").checked;
-            if (ifselected) {
-                let groupName = id + eachGroup.querySelector("input[type=checkbox]").value;
-                //console.log(groupName)
-                GroupArray.push(groupName);
-            }
+    }
+    rowGroups = query.getElementsByClassName("form-group groups")[0];
+    let groups = rowGroups.getElementsByClassName("control field");
+    for (let eachGroup of groups) {
+        // console.log(eachGroup)
+        let ifselected = eachGroup.querySelector("input[type=checkbox]").checked;
+        if (ifselected) {
+            let groupName = id + eachGroup.querySelector("input[type=checkbox]").value;
+            //console.log(groupName)
+            GroupArray.push(groupName);
         }
     }
     return GroupArray;
@@ -318,38 +286,25 @@ function mkApply(id) {
     let query = "";
     let rowTrans = "";
     let applyArray = [];
+    // let applyObject = {};
     if (id === "courses_") {
         query = document.getElementById("tab-courses");
-        rowTrans = query.getElementsByClassName("form-group transformations")[0];
-        let trans = rowTrans.getElementsByClassName("control-group transformation");
-        for (let eachTran of trans) {
-            let applyName = eachTran.querySelector("input[type=text]").value;
-            let operatorList = eachTran.getElementsByClassName("control operators")[0];
-            let operator = operatorList.querySelector("option[selected=selected]").value;
-            let fields = eachTran.getElementsByClassName("control fields")[0];
-            let targetField = id + fields.querySelector("option[selected=selected]").value;
-            let thisApply = {};
-            thisApply[applyName] = {};
-            thisApply[applyName][operator] = targetField;
-            applyArray.push(thisApply);
-            //console.log(applyArray)
-        }
     } else if (id === "rooms_") {
         query = document.getElementById("tab-rooms");
-        rowTrans = query.getElementsByClassName("form-group transformations")[0];
-        let trans = rowTrans.getElementsByClassName("control-group transformation");
-        for (let eachTran of trans) {
-            let applyName = eachTran.querySelector("input[type=text]").value;
-            let operatorList = eachTran.getElementsByClassName("control operators")[0];
-            let operator = operatorList.querySelector("option[selected=selected]").value;
-            let fields = eachTran.getElementsByClassName("control fields")[0];
-            let targetField = id + fields.querySelector("option[selected=selected]").value;
-            let thisApply = {};
-            thisApply[applyName] = {};
-            thisApply[applyName][operator] = targetField;
-            applyArray.push(thisApply);
-            // console.log(applyArray)
         }
+    rowTrans = query.getElementsByClassName("form-group transformations")[0];
+    let trans = rowTrans.getElementsByClassName("control-group transformation");
+    for (let eachTran of trans) {
+        let applyName = eachTran.querySelector("input[type=text]").value;
+        let operatorList = eachTran.getElementsByClassName("control operators")[0];
+        let operator = operatorList.querySelector("option[selected=selected]").value;
+        let fields = eachTran.getElementsByClassName("control fields")[0];
+        let targetField = id + fields.querySelector("option[selected=selected]").value;
+        let thisApply = {};
+        thisApply[applyName] = {};
+        thisApply[applyName][operator] = targetField;
+        applyArray.push(thisApply);
+        //applyObject[applyName]
     }
     return applyArray;
 }
