@@ -70,7 +70,7 @@ function mkWhere(id) {
         } else if (condition === "courses-conditiontype-none") {
             outestCondition = "NotAll";
         }
-        // console.log("the condition-type is " + outestCondition);
+        console.log("the condition-type is " + outestCondition);
         query = document.getElementById("tab-courses");
         allconditions = query.querySelectorAll(".control-group.condition");
         for (let eachCond of allconditions) {
@@ -96,12 +96,12 @@ function mkWhere(id) {
             if (!ifnot) {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
-                console.log(JSON.stringify("This condition is " + currentCondition));
+                console.log("This condition is " + JSON.stringify(currentCondition));
             } else {
                 currentCondition[operator] = {};
                 currentCondition[operator][targetfiled] = targetValue;
                 currentCondition = {"NOT": currentCondition};
-                console.log(JSON.stringify("This condition is " + currentCondition));
+                console.log("This condition is " + JSON.stringify(currentCondition));
             }
             allConds.push(currentCondition);
         }
@@ -186,6 +186,11 @@ function mkWhere(id) {
                     where["NOT"] = {};
                     let notALl = {"OR" : allConds};
                     where["NOT"] = notALl;
+                    break;
+                }
+                default:{
+                    where["AND"] = {};
+                    where["AND"] = allConds;
                     break;
                 }
             }

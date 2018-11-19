@@ -311,5 +311,17 @@
                 {"ooo":{"COUNT":"courses_audit"}}
             ]
         }
+    },
+    "query18":{
+        "WHERE":{
+            "AND":[
+                {"EQ":{"courses_audit":1}},
+                {"EQ":{"courses_audit":1}}
+            ]
+        },
+        "OPTIONS":{
+            "COLUMNS":["courses_audit"]
+        }
+
     }
 }
